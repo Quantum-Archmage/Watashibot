@@ -1,0 +1,34 @@
+import discord                                                       
+                                                                     
+client = discord.Client()                                            
+                                                                     
+@client.event                                                        
+async def on_message(message):                                       
+    # Prevents the bot from replying to itself                       
+    if message.author == client.user:                                
+        return                                                       
+    #Say hello                                                       
+    if message.content.startswith('w!hello'):                        
+        msg = 'Hello {0.author.mention}'.format(message)             
+        await client.send_message(message.channel, msg)              
+    # A place holder command                                         
+                                                                     
+    elif message.content.startswith('w!test'):                       
+        msg = 'I am working'.format(message)                         
+        await client.send_message(message.channel, msg)              
+                                                                     
+    #Repeats what the user said                                      
+    elif message.content.startswith('w!parrot'):                     
+        msg = message.content[8:len(message.content)]                
+        await client.send_message(message.channel, msg)              
+                                                                     
+                                                                     
+                                                                     
+    elif message.content.startswith('w!profile'):                    
+       if len(message.mentions) == 0:                                
+            msg = 'Sorry, I do not not know who you are talking about
+            await client.send_message(message.channel, msg)          
+       else:                                                         
+           for x in message.mentions:                                
+                msg = x.avatar_url                                   
+                await client.send_message(message.channel, msg)      
